@@ -7,7 +7,6 @@ const deleteButton = document.querySelector('[data-delete]')
 const previousOperandTextElement = document.querySelector('[data-previous-operand]')
 const currentOperandTextElement = document.querySelector('[data-current-operand]')
 const convertButton = document.querySelector('[data-convert]')
-console.log(convertButton)
 
 class Calculator{
     constructor(previousOperandTextElement, currentOperandTextElement){
@@ -61,9 +60,9 @@ class Calculator{
             default:
                 return
         }
-        this.currentOperand = computation
+        this.previousOperand = computation
         this.operation = undefined
-        this.previousOperand=''
+        this.currentOperand=''
     }
     convertNegative(){
         if (this.currentOperand == '') return

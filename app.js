@@ -12,6 +12,7 @@ class Calculator{
     constructor(previousOperandTextElement, currentOperandTextElement){
         this.previousOperandTextElement = previousOperandTextElement
         this.currentOperandTextElement = currentOperandTextElement
+        this.equalsButtonPressed = false
         this.clear()
     }
 
@@ -27,8 +28,13 @@ class Calculator{
         this.currentOperand = ''
     }
     appendNumber(number){
-        if(number === '.' && this.currentOperand.includes('.')) return
-        this.currentOperand = this.currentOperand.toString() + number.toString()
+        if(number === '.' && this.currentOperand.includes('.')) return        
+        if (this.equalsButtonPressed === true){
+            this.currentOperand = number.toString()
+        }else{
+            this.currentOperand = this.currentOperand.toString() + number.toString()
+        }
+        this.equalsButtonPressed=false
     }
     chooseOperation(operation){
         if(this.currentOperand ==='') return
@@ -38,6 +44,7 @@ class Calculator{
         this.operation = operation
         this.previousOperand = this.currentOperand
         this.currentOperand = ''
+        this.equalsButtonPressed = false
     }
     compute(){
         let computation
@@ -60,9 +67,10 @@ class Calculator{
             default:
                 return
         }
-        this.previousOperand = computation
+        this.currentOperand = computation
         this.operation = undefined
-        this.currentOperand=''
+        this.previousOperand=''
+        this.equalsButtonPressed = true
     }
     convertNegative(){
         if (this.currentOperand == '') return
@@ -79,7 +87,7 @@ class Calculator{
         if(this.operation != undefined){
             this.previousOperandTextElement.innerText = `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`
         }else{
-            this.previousOperandTextElement.innerText = this.getDisplayNumber(this.previousOperand)
+           this.previousOperandTextElement.innerText = this.getDisplayNumber(this.previousOperand)
         }
         
     }
